@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        Vue.createApp({
+            // 只是在模板中使用了counter变量，但是还没有声明，声明这个变量需要在data()函数中
+            data() {
+                return {
+                    counter: 1
+                }
+            },
+            // mounted的是一个声明周期钩子函数，你把他想成是页加载渲染完成，自动执行的方法就可以了。
+            mounted() {
+                console.log('页面加载完成后-自动执行')
+                setInterval(() => {
+                    this.counter += 1 //这个this.counter指向的就是data中的counter
+                    //this.$data.counter +=1   //效果相同
+                }, 1000)
+            },
+            // 在Vue的template(模板)中使用变量，需要用到字面量标识{{}}双大括号，我喜欢把这个双大括号叫做字面量。
+            template: '<div>{{counter}}</div>'
+        }).mount("#app")//这个模板需要放一个位置，也就是说挂载，挂载到`id=app`的DOM上
+    </script>
+</body>
+
+</html>

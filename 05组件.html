@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    list: [],
+                    inputValue: ''
+                }
+            },
+            methods: {
+                handleAddItem() {
+                    this.list.push(this.inputValue); //this的指向在data内
+                    //如果我们增加完成后，希望<input/>的值为空 双向数据绑定 也就是这时候我们改变inputValue的值，页面文本框的内容也会被清空。
+                    this.inputValue = ''
+                }
+            },
+            //实现动态增加 这个时候我们就需要一个input输入框了.而且需要用v-model指令，进行绑定。
+            template: ` <div>
+                <my-title />
+                <input v-model="inputValue" />
+                <button v-on:click="handleAddItem">增加佳丽</button>
+                <ul>
+                    <my-jiali 
+                        v-for="(item,index) of list"  
+                        v-bind:item="item" 
+                        v-bind:index="index"  
+                    />
+                </ul>
+            </div>`
+        })
+        // 比如现在写一个关于标题的组件
+        app.component('my-title', {
+            template: '<h1 style="text-align:center">象牙山洗脚城</h1>'
+        })
+        //动态组件
+        app.component('my-jiali', {
+            //props是一个数组，可以接受多个值。
+            props: ['item', 'index'],
+            template: ` <li >[{{index}}]-{{item}}</li>`
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

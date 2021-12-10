@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 插值表达式即字面量 {{xxx}} -->
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data(){
+                return {
+                    message:'<i>A</i>',
+                    count:5
+                }
+            },
+            methods:{
+                handleItemClick() {
+                this.message = this.message == 'A' ? "B" : "A"
+            }
+            },
+            //插值表达式输出html标签 v-html指令  可以添加v-once指令使其只渲染一次
+            //插值表达式里可以放js表达式
+
+            //给h2标签加入一个title属性，属性的值也想使用message。 title是鼠标悬停时出现的
+            //这时候浏览器中鼠标放上时显示的确实message这个单词，而并没有出现我们想要的结果。这时候就可以使用v-bind标签了。
+            //但显示的还是<i>A</i>
+            template:`<h1 v-on:click='handleItemClick' v-html='message'></h1>
+            <div>{{count>2?'大':'小'}}</div>
+
+            <h2 v-on:click='handleItemClick'
+                v-html='message'
+                v-once
+                v-bind:title='message'
+            ></h2>
+            `
+        })
+        const vm = app.mount('#app');
+    </script>
+</body>
+</html>

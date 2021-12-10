@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>佳丽列表</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                list: ['lily', 'amy', 'meiyangyang']
+            }
+        },
+        //我要进行循环，循环的数据是list,list中的每一项我会放到item中，然后使用字面量在模板中进行展示就可以了。
+        //v-for指令还有一个索引值，可以如下写法，打印出索引值。
+        template: `
+    <ul>
+        <li v-for="item of list">{{item}}</li>
+        <li v-for="(item,index) of list">[{{index}}]{{item}}</li>
+    </ul>
+`
+    }).mount("#app")
+</script>
+
+</html>

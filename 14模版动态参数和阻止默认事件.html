@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <!-- v-on: === @ -->
+    <!-- v-bind 可以不写 -->
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    //模版动态参数 动态属性
+                    attribute: 'title', //在这里写属性
+                    //时间动态绑定
+                    event: 'mouseenter',
+                    message: 'msg'
+                }
+            },
+            methods: {
+                handleClick() {
+                    alert('hi');
+                },
+                //阻止默认事件 直接响应对应事件的内容
+                handleButton() {
+                    alert('jspang.com')
+                }
+
+            },
+            //最常见的默认事件就是表单的默认提交事件，比如我们这里写一个表单
+            //然后写一个属性为submit的按钮，当点击按钮时，表单就会默认提交到对应的网址。
+            //阻止默认事件
+            //prevent就是阻止默认事件的修饰符。修饰符可以见简化一些代码的编写，也是比较常用的一个操作。
+            template: `<h2 @[event]='handleClick' :[attribute]='message'>{{message}}</h2>` +
+                `<form action="https://jspang.com" @click.prevent='handleButton'>
+                <button type="submit">默认提交</button>
+                </form>`
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
