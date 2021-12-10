@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo12-Vue中的计算属性</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'jspang.com',
+                price: 10,
+                count: 2
+            }
+        },
+        methods: {
+            handleItemClick() {
+                this.message = this.message == 'jspang.com' ? '技术胖' : 'jspang.com'
+            },
+            getTotal() {
+                return this.price * count;
+            },
+            getTime() {
+                return Date.now()
+            },
+            addCount() {
+                this.count++;
+            }
+        },
+        watch: {
+            //写一个侦听器来侦听count的数据变化，当count变化之后立即在控制台打印出count changed。
+            //侦听器中的方法还可以接收两个参数，一个是现在的值（current），一个是变化之前的值（prev）。
+            //需要注意的是两个参数的先后顺序
+            count(current, prev) {
+                console.log('watch changed')
+                console.log('现在的值:', current)
+                console.log('变化前的值:', prev)
+            }
+        },
+        computed: {
+            total() {
+                return this.price * this.count;
+            }
+        },
+        //计算属性computed必须要返回一个值，而且在页面渲染的同时就会执行里边的业务逻辑，也就是会先执行一遍你写的业务逻辑，
+        //而watch只有发生变化时才会执行，也就是说值没有变化，它是不执行里边业务逻辑的。
+        template: `
+            <h2> {{getTime()}}</h2>
+            <h2>{{message}}</h2>
+            <h2>{{total}}</h2>
+            <button @click="addCount">再买一个</button>
+        `
+    })
+    const vm = app.mount("#app")
+
+    /*
+    现在总结一下method、watch和computed三者如果都能实现相同的功能，它们之间的取舍和使用优先级。
+    computed 和 method都能实现的功能，建议使用computed,因为有缓存，不用渲染页面就刷新。
+    computed 和 watch 都能实现的功能，建议使用 computed，因为更加简洁。
+    */
+</script>
+
+</html>

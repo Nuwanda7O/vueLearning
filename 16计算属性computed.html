@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo12-Vue中的计算属性</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'jspang.com',
+                price: 10,
+                count: 2
+            }
+        },
+        methods: {
+            handleItemClick() {
+                this.message = this.message == 'jspang.com' ? '技术胖' : 'jspang.com'
+            },
+            getTotal() {
+                // 只要页面中有一个值重新渲染了，他都会重新执行。
+                return this.price * count;
+            },
+            getTime() {
+                return Date.now()
+            },
+            addCount(){
+                this.count++;
+            }
+        },
+        // 方法methods：只要页面重新渲染，就会重新执行方法
+        // 计算属性computed: 当计算属性依赖的内容发生变更时，才会重新执行计算 并不是只渲染一次
+        //因为是计算属性 所以调用时total 而不是 total()
+        computed: {
+            total() {
+                return this.price*this.count;
+            }
+        },
+        // 这时候打开浏览器的控制台console，然后在里边通过手动的方式修改message的值vm.message='1111'，比如修改为技术胖。这时候问题产生了，你会发现getTime( )方法被重新执行了。
+        template: `
+            <h2> {{getTime()}}</h2>
+            <h2>{{message}}</h2>
+            <h2>{{total}}</h2>
+            <button @click="addCount">再买一个</button>
+        `
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>
