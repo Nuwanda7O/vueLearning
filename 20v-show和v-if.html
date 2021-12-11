@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo16</title>
+    <script src="./vue.js" ></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app=Vue.createApp({ 
+    data(){
+        return{
+            show:true
+        }
+    },
+    template:`
+        <h2 v-show=show>JSPang.com</h2>  
+        ` 
+    }) 
+    const vm=app.mount("#app")
+    //v-show控制DOM元素显示，其实控制的是css样式，也就是display:noe。
+</script>
+
+</html>

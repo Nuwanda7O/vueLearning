@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo14</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                //有了这个变量（或者叫做数据项）以后，就可以用bind的形式进行绑定。
+                classString: 'red',
+                //值为true代表绑定，值为false代表不绑定这个样式。
+                classObject:{red:true,background:true},
+                classArray:['green','background']
+            }
+        },
+        
+        template: `
+            <h2 :class=classString>JSPang.com</h2>  
+            <h2 :class=classObject>JSPang.com</h2>  
+            <h2 :class=classArray>JSPang.com</h2>  
+        `
+        //此时你可以利用浏览器的控制台，输入对应的代码，直接控制样式了。
+        //vm.$data.classString='green'
+    })
+    const vm = app.mount("#app")
+</script>
+<style>
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .background {
+        background-color: orange;
+    }
+</style>
+
+</html>

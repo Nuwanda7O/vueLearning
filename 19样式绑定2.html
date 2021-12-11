@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo14</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                classString: 'red',
+                //行内样式
+                styleString:'color:orange;',
+                styleObject:{
+                    color:'red',
+                    background:'yellow'
+                }
+            }
+        },
+        //写在这里也可以
+        template: `
+            <h2 :class=classString>JSPang.com</h2>  
+            <sonCom class='green' /> 
+            <h2 :style='styleString'>JSPang.com</h2> 
+            <h2 :style=styleObject>JSPang.com</h2> 
+        `
+    })
+    app.component('sonCom',{
+        template:`<div class='green'>sonCom</div>` //写在这里可以
+    })
+    const vm = app.mount("#app")
+</script>
+<style>
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .background {
+        background-color: orange;
+    }
+</style>
+
+</html>
