@@ -22,6 +22,8 @@
     }) 
     const vm=app.mount("#app")
     //v-show控制DOM元素显示，其实控制的是css样式，也就是display:noe。
+    //如果显示和隐藏的状态切换比较频繁，并且没有什么多余复杂的业务逻辑，建议使用v-show
+    //因为他不会一直渲染你的页面DOM元素，这或多或少对性能和稳定性有点提升。反之可以使用v-if。
 </script>
 
 </html>
