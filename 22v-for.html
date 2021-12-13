@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['谢大脚', '刘英', '晓红']
+            }
+        },
+        methods: {},
+        //在浏览器中进行预览，你会发现谢大脚的循环项，并没有消失。这是为什么那？
+        //因为v-for循环的优先级要高于v-if判断的优先级，所以判断失效。
+
+        //正确的写法应该是在<li>外层独立出一个标签，在<li>上做循环。比如写成下面的代码。 但这样相当丑陋
+
+        //Vue给我们提供了<template>模版标签，也就是一个空的占位符，目的就是解决模板中为完成业务逻辑，而使用的无用html标签的现象。
+        template: `
+        <span v-for="count in 99">{{count}},</span>
+
+        <ul>
+    <li 
+        v-for="(item,index) in listArray"
+        :key="index+item"
+        v-if="item != '谢大脚'"
+    >
+        [{{index}}]{{item}}
+    </li>
+</ul>
+
+<ul>
+    <div
+        v-for="(item,index) in listArray"
+        :key="index+item"
+    >
+    <li v-if="item != '谢大脚'">
+        [{{index}}]{{item}}
+    </li>
+    </div>
+</ul>
+
+<ul>
+    <template
+        v-for="(item,index) in listArray"
+        :key="index+item"
+    >
+    <li v-if="item != '谢大脚'">
+        [{{index}}]{{item}}
+    </li>
+    </template>
+</ul>
+        `
+
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>

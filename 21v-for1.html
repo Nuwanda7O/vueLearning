@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['谢大脚', '刘英', '晓红'],
+                listObject: {
+                    GirlOne: '谢大脚',
+                    GirlTwo: '刘英',
+                    GirlThree: '晓红'
+                }
+            }
+        },
+        //为了提高循环时性能，在数组其中一项变化后，整个数组不进行全部重新渲染，Vue提供了绑定key值的使用方法，目的就是增加渲染性能，避免重复渲染。
+        //这时，你可以加唯一性key值，增加后vue就会辨认出哪些内容被渲染后并没有变化，而只渲染新变化的内容。
+        //官方不建议使用索引index为key值，但此时又为了保持唯一性，所以这里使用了index+item进行绑定key值
+        methods: {
+            handleChangeBtnClick() {
+                this.listArray.push('JSPang.com')
+            }
+        },
+        // 在v-for渲染数组时中还可以加入索引index,也就是 数组的下标。
+        template: `
+        <button @click="handleChangeBtnClick">点我改变</button>
+
+        <ul>
+        <li v-for="item in listArray">{{item}}</li>
+    </ul>
+    <ul>
+        <li v-for="(item,index)  in listArray" :key="index+item">[{{index}}]{{item}}</li>
+    </ul>
+
+    <ul>
+    <li v-for="(value,key,index)  in listObject" :key="key">
+        [{{index}}]{{value}}-{{key}}
+    </li>
+</ul>
+    `
+
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>

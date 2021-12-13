@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo19</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 绑定事件中的修饰符有很多种，这些修饰符各有各的用处。
+        本节课将讲解6中Vue中的事件修饰符，分别是；stop,prevent,capture,self,once和passive。 -->
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                count: 0
+            }
+        },
+        methods: {
+            addCountClick() {
+                this.count++
+            },
+            handleBtnClick1() {
+                alert(1)
+            },
+        },
+        //在Vue中要停止冒泡是非常简单的，只要加加一个事件修饰符stop就可以了。
+        //除了使用.stop修饰符，还有一种修饰符self，意思是只有点击自己的时候才会被执行。 只不过加的位置要在家外层DOM元素的事件上。
+        //prevent修饰符：阻止默然行为的修饰符，这个以前讲过，例如阻止form表单的默认提交行为。（不在重复介绍，如果你还没有掌握，可以复习以前课程）
+
+        // capture修饰符：改成捕获模式，默认的模式都是冒泡模式，也就是从下到上，但是你用capture后，是从上到下的。
+        //once修饰符：事件只执行一次（视频中作演示）。
+        //passive修饰符：解决滚动时性能的修饰符，不太好演示，等以后用到我们会再详细讲解。
+        template: `
+        <div @click.self="handleBtnClick1">
+            我是最外层的div
+            <div>目前已点佳丽数量{{count}}.</div>
+            <button @click.stop=" addCountClick()">增加一位佳丽</button>
+       </div>
+        `
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>

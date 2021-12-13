@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo21</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {}
+        },
+        methods: {
+            handleKeyDown() {
+                console.log('keydow....')
+            },
+            handleClick() {
+                alert('click')
+            }
+        },
+        //如果现在的需求是，上面的代码只有在按下回车时，才在控制台进行打印，这时候就需要按键修饰符了。我们学的第一个按键修饰符enter
+        //类似这样只响应单个按键的修饰符有很多
+        // enter 、tab、delete、esc、up 、down、left、right
+        template: `
+        <div>
+            <input @keydown.enter="handleKeyDown"/>
+        </div>
+        <div @click.right="handleClick">JSPang.com</div>
+        `
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo19</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                count: 0
+            }
+        },
+        //在编写响应事件事，是可以接受一个event参数的，这个参数就是关于响应事件的一些内容。
+        //可以看到event的内容非常多，想直观看到是那个DOM元素触发事件，可以使用target属性。
+        methods: {
+            addCountClick(event) {
+                console.log(event);
+                console.log(event.target);
+                this.count++;
+            },
+            addCountClick1(num) {
+                this.count += num
+            },
+            addCountClick2(num, event) {
+                this.count += num
+                console.log(event.target);
+            },
+            handleBtnClick1() {
+                alert(1)
+            },
+            handleBtnClick2() {
+                alert(2)
+            },
+        },
+        //<button @click="addCountClick">增加一位佳丽</button>
+        //你还可以使用更简单的方法，不在methods中写任何的响应方法，而是使用表达式来编写。
+
+        //如果想在模板中一次触发两个事件方法，需要 用,逗号，把事件隔开，然后每个事件后边必须加上( )才能起作用。
+        template: `
+      <div>目前已点佳丽数量{{count}}.</div>
+      
+      <button @click="count++">增加一位佳丽</button>
+      <button @click="addCountClick1(2)">增加一位佳丽</button>
+      <button @click="addCountClick2(2,$event)">增加一位佳丽</button>
+      <button @click="handleBtnClick1(),handleBtnClick2()">增加一位佳丽</button>
+        `
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>
