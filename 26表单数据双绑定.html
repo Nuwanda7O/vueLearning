@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo22</title>
+    <script src="./vue.js" ></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app=Vue.createApp({ 
+    data(){
+        return{
+            name:'',
+            checked:true,
+            girls:[],
+            girl:''
+        }
+    },
+    methods:{
+
+    },
+    //input 数据双向绑定
+    //这个可能是最简单和最常用的双向绑定方式，我们先在模板中给写一个<input/>，
+    //然后在data中声明一个name的变量。有了变量后和input进行双向数据绑定。
+
+    //textarea
+    //以前我们写HTML的时候，写textarea标签都是成对出现的，比如这样<textarea></textarea>，如果想在Vue中实现textarea的双向数据绑定，
+    //这时候只要写单标签就可以了，剩下的事情Vue底层就帮你完成了。
+
+    //学会了checkbox的双向数据绑定，radio单选按钮就简单了。
+    //但是需要注意的是，既然是单选，这时候data中的变量就不能是一个数字了，一般是一个字符串。比如我们这里新定义了一个girl的变量。
+    template:`
+        <div>
+            <div>{{name}}</div>
+            <input v-model="name" />
+            <div><textarea v-model="name" /></div>
+            {{checked}}<input type="checkbox" v-model="checked" />  
+
+            <div>
+    {{girls}}
+    大脚<input type="checkbox" v-model="girls" value="大脚" />
+    刘英<input type="checkbox" v-model="girls" value="刘英" />
+    晓红<input type="checkbox" v-model="girls" value="晓红" />
+    <div>
+    {{girl}}
+    大脚<input type="radio" v-model="girl" value="大脚" />
+    刘英<input type="radio" v-model="girl" value="刘英" />
+    晓红<input type="radio" v-model="girl" value="晓红" />
+    </div>
+</div>
+        </div>
+        ` 
+    }) 
+    const vm=app.mount("#app")
+
+</script>
+</html>

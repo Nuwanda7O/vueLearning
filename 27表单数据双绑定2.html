@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo23</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        //v-model也有很多实用的修饰符
+        //我们作一个input的绑定效果,现在data中声明一个message变量，值为空。
+        //然后在模板中写一个<input />并和message进行双向数据绑定。
+
+        //这时候当你在文本框中输入任何内容的时候，插值表达式会跟着改变。
+        //如果你不想马上显示，就可以用lazy修饰符，这样就可以实现当输入完成后，失去焦点再进行改变。
+
+        //<input />输入的内容无论是数字还是字母，最终都会变为字符串。
+        //如果想最终输入的变成数字，你就可以使用number修饰符了。
+
+        //trim修饰符大家一定不陌生，它是用来消除input框输入内容前后的空格的。
+        //加入trim修饰符后，Vue就会自动给我们去除前后的空格。
+        data() {
+            return {
+                checked: true,
+                name: '',
+                message:'',
+                message1: 'JSPang.com'
+            }
+        },
+        // 现在的需求是，我选中的时候显示JSPang.com，没选中的时候显示技术胖。
+        template: `
+        <div>{{name}}
+    <input 
+        type="checkbox" 
+        v-model="name"  
+        true-value="JSPang.com"
+        false-value="技术胖"
+        /></div>
+
+        <div>
+    {{message}}<input v-model.lazy="message" />
+</div>
+
+<div>
+    {{typeof message}}<input v-model.number="message" />
+</div>
+
+<div>
+    {{message1}}<input v-model.trim="message1" />
+</div>
+        `
+
+    })
+    const vm = app.mount("#app")
+</script>
+
+</html>
