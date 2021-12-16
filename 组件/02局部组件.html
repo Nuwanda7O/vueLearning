@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        你可以把局部组件看成一个变量，然后在使用的地方注册这个组件，才可以使用。局部组件的最大好处就是只有在使用的时候，才会耗费系统资源，不像全局组件一样，一直都存在。
+     -->
+    <div id="app"></div>
+</body>
+<script>
+    //注册局部组件
+    //注意组件注册和使用时的命名规范 一个是大驼峰命名法 一个是用-隔开
+    const XieDaJiao = {
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: `<div>{{count}}<button @click="count++">增加1</button></div>`
+    }
+    const app = Vue.createApp({
+        components: { 'xie-da-jiao': XieDaJiao }, //给组件起个名字 也可以简写components: { counter }
+        template: `<h2>JSPang.com</h2>
+        <xie-da-jiao />
+        <xie-da-jiao />
+        `
+    })
+    //需要注意的是，局部变量也是拥有独立性的，所以可以进行复用。
+    const vm = app.mount("#app")
+</script>
+
+</html>

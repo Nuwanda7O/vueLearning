@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        //这时候的Vue.createApp实际是建立一个Vue的实例，也就是相当于刚才说的第一个根组件。
+
+        //然后在浏览器中进行预览，你会发现<count />是互不干扰的，就是因为这个特性，Vue中的组件就具有了复用性。
+        const app = Vue.createApp({
+            template:`
+        <website />
+        <describe />
+        <count/>
+                <count/>
+                <count/>
+    `
+        })
+
+        //定义组件
+        app.component('website', {
+            template: ` <h2>JSPang.com</h2>`
+        })
+        app.component('describe', {
+            template: ` <h2>技术胖的博客</h2>`
+        })
+        app.component('count',{
+            data(){
+                return {
+                    count:0
+                }
+            },
+            template:`<div>{{count}}<button @click="count++">增加1</button></div>`
+        })
+
+        const vm = app.mount('#app')
+
+        //全局组件的概括：只要定义了，处处可以使用，性能不高，但是使用起来简单。
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo03</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        // 比如我们在调用子组件的地方，通过属性name传递一个技小胖的文字进去。   静态传值
+        //静态参数这里还有一个小坑需要说明一下，就是静态传递的只能是字符串类型String，而动态传参的就可以是多种类型了，甚至是一个函数(方法).
+        template: `<h2>JSPang.com</h2>
+        <Son name='小胖' />
+        <Son :name='name'/>
+            <xiao-jie-jie :pay="pay"/>
+        `,
+        data() {
+            return {
+                name: 'xiaopang',
+                pay: () => {
+                    alert('给你500元')
+                }
+            }
+        }
+    })
+
+    app.component('Son', {
+        template: `<div>Son{{name}} div </div>`,
+        props: ['name']
+    })
+
+    //传的参数是函数
+    app.component('XiaoJieJie', {
+        props: ['pay'],
+        methods: {
+            handleClick() {
+                alert('请付钱....')
+                this.pay() // 付多少钱，是顾客说的算的，所以调用时才能确定
+            }
+        },
+        template: `<div @click="this.handleClick"> 和小姐姐，打招呼！ </div>`
+    })
+
+    const vm = app.mount("#app")
+</script>
+
+</html>
